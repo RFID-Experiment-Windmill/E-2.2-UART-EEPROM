@@ -16,7 +16,7 @@
 /**
  * @brief Frequency of the System Clock
  */
-#define SysClock (FreqOsc << CLK_DIV)
+#define SysClock (FreqOsc << (CLK_DIV & 0x7))
 
 /**
  * @brief How many SysClock passes in 1 millisecond

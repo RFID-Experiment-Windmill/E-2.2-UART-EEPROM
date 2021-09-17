@@ -1,7 +1,7 @@
 #include "BoardBase.h"
 
-#include "STC/UART/UART.h""
 #include "STC/Timer/Timer.h"
+#include "STC/UART/UART.h"
 
 #include "AlphaSender.h"
 #include "LedBlinker.h"
@@ -47,5 +47,6 @@ void main()
 {
     initTimer0();
     initUART1();
+    sendSavedData();
     while (1) {}
 }
