@@ -16,7 +16,7 @@
 
 int isLedOn()
 {
-    return Led == 1;
+    return Led == 0;
 }
 
 /**
@@ -38,13 +38,13 @@ void onSysTickOneMs()
     static uint16_t remainOffTime;
     if (isLedOn()) {
         if (!--remainLightingTime) {
-            Led           = 0;
+            Led           = 1;
             remainOffTime = 1000;
         }
     }
     else {
         if (!--remainOffTime) {
-            Led = 1;
+            Led = 0;
             remainLightingTime = nextLightingTime * 1000;
             if (--nextLightingTime == 0) nextLightingTime = 5;
         }
