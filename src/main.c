@@ -47,6 +47,7 @@ void main()
 {
     initTimer0();
     initUART1();
+    enableIAP();
     sendSavedData();
     while (1) {}
 }
