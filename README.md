@@ -1,2 +1,2 @@
-# E-2.1-BasicOutput-Timer
-使用STC12C5A16S2进行基本输出和定时器实验
+# E-2.2-UART-EEPROM
+使用STC12C5A16S2进行串口通信和EEPROM掉电保存实验
