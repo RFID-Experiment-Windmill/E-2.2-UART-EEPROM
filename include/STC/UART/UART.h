@@ -50,7 +50,7 @@ inline void stopBRT()
 /**
  * @brief Serial port of the STC Chip
  */
-typedef enum SerialPort { Port1, Port2 } SerialPort_t;
+typedef enum UARTPort { Port1, Port2 } UARTPort_t;
 
 typedef enum BaudGenerator {
     SysClk,
@@ -90,7 +90,7 @@ typedef struct PortCfg
  * @param port which port to config
  * @param cfg configuration
  */
-void configurePort(SerialPort_t port, pPortCfg cfg)
+void configurePort(UARTPort_t port, pPortCfg cfg)
 {
     switch (port) {
         case Port1:
@@ -149,7 +149,7 @@ void configurePort(SerialPort_t port, pPortCfg cfg)
     }
 }
 
-inline uint8_t readPort(SerialPort_t port)
+inline uint8_t readPort(UARTPort_t port)
 {
     switch (port) {
         case Port1: return SBUF;
@@ -157,7 +157,7 @@ inline uint8_t readPort(SerialPort_t port)
     }
 }
 
-inline void writePort(SerialPort_t port, uint8_t data)
+inline void writePort(UARTPort_t port, uint8_t data)
 {
     switch (port) {
         case Port1: SBUF = data;
@@ -171,7 +171,7 @@ inline void writePort(SerialPort_t port, uint8_t data)
  * @param port which port to check
  * @return TI of specific port
  */
-inline int checkTI(SerialPort_t port)
+inline int checkTI(UARTPort_t port)
 {
     switch (port) {
         case Port1: return TI;
@@ -184,7 +184,7 @@ inline int checkTI(SerialPort_t port)
  *
  * @param port which port to clear
  */
-inline void clearTI(SerialPort_t port)
+inline void clearTI(UARTPort_t port)
 {
     switch (port) {
         case Port1: TI = 0;
@@ -198,7 +198,7 @@ inline void clearTI(SerialPort_t port)
  * @param port which port to check
  * @return RI of specific port
  */
-inline int checkRI(SerialPort_t port)
+inline int checkRI(UARTPort_t port)
 {
     switch (port) {
         case Port1: return RI;
@@ -211,7 +211,7 @@ inline int checkRI(SerialPort_t port)
  *
  * @param port which port to clear
  */
-inline void clearRI(SerialPort_t port)
+inline void clearRI(UARTPort_t port)
 {
     switch (port) {
         case Port1: RI = 0;
@@ -225,7 +225,7 @@ inline void clearRI(SerialPort_t port)
  * @param port which port to send
  * @param data data to send
  */
-inline void sendDataTI(SerialPort_t port, uint8_t data)
+inline void sendDataTI(UARTPort_t port, uint8_t data)
 {
     writePort(port, data);
 }
@@ -236,7 +236,7 @@ inline void sendDataTI(SerialPort_t port, uint8_t data)
  * @param port which port to send
  * @param data data to send
  */
-inline void sendData(SerialPort_t port, uint8_t data)
+inline void sendData(UARTPort_t port, uint8_t data)
 {
     sendDataTI(port, data);
     while (!checkTI(port))

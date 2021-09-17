@@ -3,6 +3,10 @@
         "stc12c5axx.h": "c",
         "compiler.h": "c",
         "stcbase.h": "c",
-        "serial.h": "c"
+        "serial.h": "c",
+        "cstdlib": "cpp",
+        "type_traits": "cpp",
+        "xstring": "cpp",
+        "xutility": "cpp"
     }
 }

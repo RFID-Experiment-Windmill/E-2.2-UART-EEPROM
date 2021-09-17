@@ -1,7 +1,10 @@
 #include "BoardBase.h"
-#include "LedBlinker.h"
-#include "STC/Serial/Serial.h"
+
+#include "STC/UART/UART.h""
 #include "STC/Timer/Timer.h"
+
+#include "AlphaSender.h"
+#include "LedBlinker.h"
 
 /**
  * @brief ISR Handler for Timer 0
@@ -10,6 +13,14 @@ INTERRUPT(isrTimer0, 1)
 {
     reloadTimer(Timer0, ToReloadValueDIV12(SysClockOfOneMs));
     onSysTickOneMs();
+}
+
+INTERRUPT(isrUART1, 4)
+{
+    if (checkRI(Port1)) {
+        sendAlpha(readPort(Port1));
+        clearRI(Port1);
+    }
 }
 
 /**
@@ -23,8 +34,18 @@ void initTimer0()
     startTimer(Timer0);
 }
 
+void initUART1()
+{
+    setBRTSource(SysClock_DIV_12);
+    reloadBRT(BaudDoubledToReloadValueDIV12(115200));
+
+    PortCfg_t cfg = {.mode = UART8, .baudGen = Timer_BRT, .baudMode = Double};
+    configurePort(Port1, &cfg);
+}
+
 void main()
 {
     initTimer0();
+    initUART1();
     while (1) {}
 }
