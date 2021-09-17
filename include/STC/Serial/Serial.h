@@ -193,6 +193,20 @@ inline void clearTI(SerialPort_t port)
 }
 
 /**
+ * @brief Check if RI is set
+ * 
+ * @param port which port to check
+ * @return RI of specific port
+ */
+inline int checkRI(SerialPort_t port)
+{
+    switch (port) {
+        case Port1: return RI;
+        case Port2: return S2CON & 0x01;
+    }
+}
+
+/**
  * @brief Clear RI bit of specific port
  *
  * @param port which port to clear
