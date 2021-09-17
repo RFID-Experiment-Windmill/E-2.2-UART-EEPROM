@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "stc12c5axx.h": "c",
+        "compiler.h": "c",
+        "stcbase.h": "c",
+        "serial.h": "c"
+    }
+}
