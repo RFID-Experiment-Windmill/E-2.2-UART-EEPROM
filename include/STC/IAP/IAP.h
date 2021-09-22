@@ -75,7 +75,6 @@ inline void clearCMDFail()
  */
 inline void triggerIAPOp()
 {
-    clearCMDFail();
     IAP_TRIG = IAP_KEY;
     IAP_TRIG = IAP_KEY >> 8;
 }
@@ -87,13 +86,14 @@ inline void triggerIAPOp()
  */
 inline void doIAPOp(IAPCMD_t cmd)
 {
+    IAP_CONTR |= IAP_WAIT_TIME;
+    clearCMDFail();
     switch (cmd) {
         case StandBy: IAP_CMD = 0x00; break;
         case Read: IAP_CMD = 0x01; break;
         case Write: IAP_CMD = 0x02; break;
         case Erase: IAP_CMD = 0x03; break;
     }
-    IAP_CONTR |= IAP_WAIT_TIME;
     triggerIAPOp();
 }
 
