@@ -9,9 +9,9 @@
 /**
  * @brief Time to wait of Flash operation
  *
- * Suitable for SysClock 6 MHz
+ * Suitable for SysClock 12 MHz
  */
-#define IAP_WAIT_TIME 0x4
+#define IAP_WAIT_TIME 0x3
 
 /**
  * @brief Bootstrap area
