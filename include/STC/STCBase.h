@@ -9,9 +9,9 @@
 /**
  * @brief Frequency of the oscillator
  *
- * Oscillator Frequency -> 6 MHz
+ * Oscillator Frequency -> 11.0592 MHz
  */
-#define FreqOsc (6000000)
+#define FreqOsc (11059200)
 
 /**
  * @brief Frequency of the System Clock
