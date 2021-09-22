@@ -77,6 +77,7 @@ inline void triggerIAPOp()
 {
     IAP_TRIG = IAP_KEY;
     IAP_TRIG = IAP_KEY >> 8;
+    NOP();
 }
 
 /**
@@ -86,6 +87,7 @@ inline void triggerIAPOp()
  */
 inline void doIAPOp(IAPCMD_t cmd)
 {
+    enableIAP();
     IAP_CONTR |= IAP_WAIT_TIME;
     clearCMDFail();
     switch (cmd) {
@@ -95,6 +97,7 @@ inline void doIAPOp(IAPCMD_t cmd)
         case Erase: IAP_CMD = 0x03; break;
     }
     triggerIAPOp();
+    disableIAP();
 }
 
 /**
