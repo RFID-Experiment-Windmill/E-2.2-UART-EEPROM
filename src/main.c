@@ -1,5 +1,6 @@
 #include "BoardBase.h"
 
+#include "STC/Interrupt.h"
 #include "STC/Timer/Timer.h"
 #include "STC/UART/UART.h"
 
@@ -28,7 +29,7 @@ INTERRUPT(isrUART1, 4)
  */
 void initTimer0()
 {
-    TimerCfg_t cfg = {.source = SysClock_DIV_12, .mode = Counter_BIT_16, .gate = Ignore};
+    TimerCfg_t cfg = {.source = SysClock_DIV_12, .mode = Counter_BIT_16, .gate = Ignore, .it = EnableIT};
     configureTimer(Timer0, &cfg);
     reloadTimer(Timer0, ToReloadValueDIV12(SysClockOfOneMs));
     startTimer(Timer0);
@@ -37,7 +38,7 @@ void initTimer0()
 void initUART1()
 {
     setBRTSource(SysClock_DIV_12);
-    PortCfg_t cfg = {.mode = UART8, .baudGen = Timer_BRT, .baudMode = Normal};
+    PortCfg_t cfg = {.mode = UART8, .baudGen = Timer_BRT, .baudMode = Normal, .it = EnableIT};
     reloadBRT(BaudToReloadValueDIV12(9600));
 
     configurePort(Port1, &cfg);
@@ -45,6 +46,7 @@ void initUART1()
 
 void main()
 {
+    enableGlobalInterrupt();
     initTimer0();
     initUART1();
     sendSavedData();
