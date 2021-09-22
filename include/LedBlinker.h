@@ -16,7 +16,7 @@
 
 int isLedOn()
 {
-    return Led == 0;
+    return !Led;
 }
 
 /**
