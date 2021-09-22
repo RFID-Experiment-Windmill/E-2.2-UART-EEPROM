@@ -66,6 +66,8 @@ void configureTimer(Timer_t timer, pTimerCfg cfg)
     switch (timer) {
         case Timer0:
             TMOD &= 0xF0;// 1111_0000
+            TF0 = 0;     // Clear Interrupt Flag
+            ET0 = 1;     // Enable Interrupt
             switch (cfg->source) {
                 case External: TMOD |= 0x04; break;
                 case SysClock_DIV_1: AUXR |= 0x80; break;
@@ -84,6 +86,8 @@ void configureTimer(Timer_t timer, pTimerCfg cfg)
             break;
         case Timer1:
             TMOD &= 0x0F;// 0000_1111
+            TF1 = 0;     // Clear Interrupt Flag
+            ET1 = 1;     // Enable Interrupt
             switch (cfg->source) {
                 case External: TMOD |= 0x40; break;
                 case SysClock_DIV_1: AUXR |= 0x40; break;
