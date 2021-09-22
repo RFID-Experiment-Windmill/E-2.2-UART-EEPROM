@@ -5,7 +5,7 @@
  * @brief Enable interrupt globally
  */
 inline void enableGlobalInterrupt(){
-    IE = 1;
+    EA = 1;
 }
 
 /**
@@ -13,7 +13,7 @@ inline void enableGlobalInterrupt(){
  */
 inline void disableGlobalInterrupt()
 {
-    IE = 0;
+    EA = 0;
 }
 
 typedef enum Interrupt { DisableIT, EnableIT } Interrupt_t;
