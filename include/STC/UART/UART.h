@@ -11,15 +11,15 @@
 inline void setBRTSource(TimerTriggerSource_t source)
 {
     switch (source) {
-        case SysClock_DIV_1: AUXR &= 0xFB; break;
-        case SysClock_DIV_12: AUXR |= 0x04; break;
+        case SysClock_DIV_12: AUXR &= 0xFB; break;
+        case SysClock_DIV_1: AUXR |= 0x04; break;
     }
 }
 
-#define BaudToReloadValue(baud) ToReloadValue(SysClock / baud)
-#define BaudDoubledToReloadValue(baud) ToReloadValue(SysClock / baud / 2)
-#define BaudToReloadValueDIV12(baud) ToReloadValueDIV12(SysClock / baud)
-#define BaudDoubledToReloadValueDIV12(baud) ToReloadValueDIV12(SysClock / baud / 2)
+#define BaudToReloadValue(baud) ToReloadValue(SysClock / baud / 16)
+#define BaudDoubledToReloadValue(baud) ToReloadValue(SysClock / (baud / 2) / 16)
+#define BaudToReloadValueDIV12(baud) ToReloadValueDIV12(SysClock / baud / 16)
+#define BaudDoubledToReloadValueDIV12(baud) ToReloadValueDIV12(SysClock / (baud / 2) / 16)
 
 /**
  * @brief Set reload value of BRT
@@ -167,7 +167,7 @@ inline void writePort(UARTPort_t port, uint8_t data)
 
 /**
  * @brief Check if TI is set
- * 
+ *
  * @param port which port to check
  * @return TI of specific port
  */
@@ -187,14 +187,14 @@ inline int checkTI(UARTPort_t port)
 inline void clearTI(UARTPort_t port)
 {
     switch (port) {
-        case Port1: TI = 0;
-        case Port2: S2CON &= 0xFD;
+        case Port1: TI = 0; break;
+        case Port2: S2CON &= 0xFD; break;
     }
 }
 
 /**
  * @brief Check if RI is set
- * 
+ *
  * @param port which port to check
  * @return RI of specific port
  */
@@ -214,14 +214,14 @@ inline int checkRI(UARTPort_t port)
 inline void clearRI(UARTPort_t port)
 {
     switch (port) {
-        case Port1: RI = 0;
-        case Port2: S2CON &= 0xFE;
+        case Port1: RI = 0; break;
+        case Port2: S2CON &= 0xFE; break;
     }
 }
 
 /**
  * @brief Send data and handle TI in isr
- * 
+ *
  * @param port which port to send
  * @param data data to send
  */
@@ -232,13 +232,13 @@ inline void sendDataTI(UARTPort_t port, uint8_t data)
 
 /**
  * @brief Send data and wait before TI is set
- * 
+ *
  * @param port which port to send
  * @param data data to send
  */
 inline void sendData(UARTPort_t port, uint8_t data)
 {
-    sendDataTI(port, data);
+    writePort(port, data);
     while (!checkTI(port))
         ;
     clearTI(port);
