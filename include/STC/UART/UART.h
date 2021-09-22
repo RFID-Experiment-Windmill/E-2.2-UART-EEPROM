@@ -1,5 +1,6 @@
 #pragma once
 #include "STC/STCBase.h"
+#include "STC/Interrupt.h"
 #include "STC/Timer/Timer.h"
 #include "stdint.h"
 
@@ -81,7 +82,8 @@ typedef struct PortCfg
      * @brief Contorl if Double Baud Rate
      * Ignore if PortMode is UART8 and its BaudGen is SysClk
      */
-    BaudMode_t baudMode;
+    BaudMode_t  baudMode;
+    Interrupt_t it;
 } PortCfg_t, *pPortCfg;
 
 /**
@@ -122,6 +124,10 @@ void configurePort(UARTPort_t port, pPortCfg cfg)
                 case Normal: PCON &= 0x7F; break;
                 case Double: PCON |= 0x80; break;
             }
+            switch (cfg->it) {
+                case EnableIT: ES = 1; break;
+                case DisableIT: ES = 0; break;
+            }
             break;
         case Port2:
             // Disable Address select
@@ -144,6 +150,10 @@ void configurePort(UARTPort_t port, pPortCfg cfg)
             switch (cfg->baudMode) {
                 case Normal: AUXR &= 0xF7; break;
                 case Double: AUXR |= 0x08; break;
+            }
+            switch (cfg->it) {
+                case EnableIT: IE2 |= 0x01; break;
+                case DisableIT: IE2 &= 0xFE; break;
             }
             break;
     }

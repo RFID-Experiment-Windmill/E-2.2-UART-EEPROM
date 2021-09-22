@@ -1,4 +1,5 @@
 #pragma once
+#include "STC/Interrupt.h"
 #include "STC/STCBase.h"
 #include "stdint.h"
 
@@ -59,6 +60,7 @@ typedef struct TimerCfg
     TimerTriggerSource_t source;
     TimerMode_t          mode;
     TimerGateMode_t      gate;
+    Interrupt_t          it;
 } TimerCfg_t, *pTimerCfg;
 
 void configureTimer(Timer_t timer, pTimerCfg cfg)
@@ -67,7 +69,6 @@ void configureTimer(Timer_t timer, pTimerCfg cfg)
         case Timer0:
             TMOD &= 0xF0;// 1111_0000
             TF0 = 0;     // Clear Interrupt Flag
-            ET0 = 1;     // Enable Interrupt
             switch (cfg->source) {
                 case External: TMOD |= 0x04; break;
                 case SysClock_DIV_1: AUXR |= 0x80; break;
@@ -83,11 +84,14 @@ void configureTimer(Timer_t timer, pTimerCfg cfg)
                 case Ignore: /*Already set to 0*/ break;
                 case Enable_WHEN_INT_HIGH: TMOD |= 0x08; break;
             }
+            switch (cfg->it) {
+                case EnableIT: ET0 = 1; break;
+                case DisableIT: ET0 = 0; break;
+            }
             break;
         case Timer1:
             TMOD &= 0x0F;// 0000_1111
             TF1 = 0;     // Clear Interrupt Flag
-            ET1 = 1;     // Enable Interrupt
             switch (cfg->source) {
                 case External: TMOD |= 0x40; break;
                 case SysClock_DIV_1: AUXR |= 0x40; break;
@@ -102,6 +106,10 @@ void configureTimer(Timer_t timer, pTimerCfg cfg)
             switch (cfg->gate) {
                 case Ignore: /*Already set to 0*/ break;
                 case Enable_WHEN_INT_HIGH: TMOD |= 0x80; break;
+            }
+            switch (cfg->it) {
+                case EnableIT: ET1 = 1; break;
+                case DisableIT: ET1 = 0; break;
             }
             break;
     }
