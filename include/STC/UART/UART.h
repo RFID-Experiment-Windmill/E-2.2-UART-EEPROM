@@ -160,8 +160,8 @@ inline uint8_t readPort(UARTPort_t port)
 inline void writePort(UARTPort_t port, uint8_t data)
 {
     switch (port) {
-        case Port1: SBUF = data;
-        case Port2: S2BUF = data;
+        case Port1: SBUF = data; break;
+        case Port2: S2BUF = data; break;
     }
 }
 
