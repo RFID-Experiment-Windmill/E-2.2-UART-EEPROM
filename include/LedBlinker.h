@@ -27,11 +27,11 @@ void onSysTickOneMs()
     /**
      * @brief Remain lighting time in microsecond
      */
-    static uint16_t remainLightingTime;
+    static uint16_t remainLightingTime = 0;
     /**
      * @brief Remain off time in microsecond
      */
-    static uint16_t remainOffTime;
+    static uint16_t remainOffTime = 1000;
     if (isLedOn()) {
         if (!--remainLightingTime) {
             Led           = 0;
