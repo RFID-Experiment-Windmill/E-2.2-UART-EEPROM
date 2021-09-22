@@ -7,11 +7,21 @@
 #define IAP_KEY 0xA55A
 
 /**
- * @brief Time to wait of Flash operation
- *
- * Suitable for SysClock 12 MHz
+ * @brief Time to wait for Flash operation of specific SysClock
  */
-#define IAP_WAIT_TIME 0x3
+#define IAP_WAIT_TIME_1MHz 0x7
+#define IAP_WAIT_TIME_2MHz 0x6
+#define IAP_WAIT_TIME_3MHz 0x5
+#define IAP_WAIT_TIME_6MHz 0x4
+#define IAP_WAIT_TIME_12MHz 0x3
+#define IAP_WAIT_TIME_20MHz 0x2
+#define IAP_WAIT_TIME_24MHz 0x1
+#define IAP_WAIT_TIME_30MHz 0x0
+
+/**
+ * @brief Time to wait for Flash operation
+ */
+#define IAP_WAIT_TIME IAP_WAIT_TIME_12MHz
 
 /**
  * @brief Bootstrap area
