@@ -7,6 +7,7 @@
         "cstdlib": "cpp",
         "type_traits": "cpp",
         "xstring": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "MAIN.C": "cpp"
     }
 }

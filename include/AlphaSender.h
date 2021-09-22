@@ -39,6 +39,7 @@ void sendSavedData()
         sendData(Port1, ch);
         incIAPAddr();
     }
+    sendData(Port1, '\n');
 }
 
 /**
@@ -63,6 +64,8 @@ void sendAlpha(char endChar)
         sendData(Port1, i);
         sentData[i - startChar] = i;
     }
+    sendData(Port1, '\n');
+
     sentData[len] = '\0';
     saveSentData(sentData);
 }

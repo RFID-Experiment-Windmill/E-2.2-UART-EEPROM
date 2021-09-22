@@ -37,9 +37,9 @@ void initTimer0()
 void initUART1()
 {
     setBRTSource(SysClock_DIV_12);
-    reloadBRT(BaudDoubledToReloadValueDIV12(115200));
+    PortCfg_t cfg = {.mode = UART8, .baudGen = Timer_BRT, .baudMode = Normal};
+    reloadBRT(BaudToReloadValueDIV12(9600));
 
-    PortCfg_t cfg = {.mode = UART8, .baudGen = Timer_BRT, .baudMode = Double};
     configurePort(Port1, &cfg);
 }
 
