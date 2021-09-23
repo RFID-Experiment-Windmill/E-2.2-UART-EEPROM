@@ -117,6 +117,8 @@ void configureTimer(Timer_t timer, pTimerCfg cfg)
 
 #define ToReloadValue(x) (0xFFFF - x)
 #define ToReloadValueDIV12(x) (0xFFFF - x / 12)
+#define ToReloadValueAutoReload(x) (ToReloadValue(x) & 0x00FF | ToReloadValue(x) << 8)
+#define ToReloadValueAutoReloadDIV12(x) (ToReloadValueDIV12(x) & 0x00FF | ToReloadValueDIV12(x) << 8)
 
 inline void reloadTimer(Timer_t timer, uint16_t reloadValue)
 {

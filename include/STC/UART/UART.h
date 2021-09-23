@@ -17,10 +17,10 @@ inline void setBRTSource(TimerTriggerSource_t source)
     }
 }
 
-#define BaudToReloadValue(baud) ToReloadValue(SysClock / baud / 16)
-#define BaudDoubledToReloadValue(baud) ToReloadValue(SysClock / (baud / 2) / 16)
-#define BaudToReloadValueDIV12(baud) ToReloadValueDIV12(SysClock / baud / 16)
-#define BaudDoubledToReloadValueDIV12(baud) ToReloadValueDIV12(SysClock / (baud / 2) / 16)
+#define BaudToReloadValue(baud) ToReloadValueAutoReload(SysClock / baud / 16)
+#define BaudDoubledToReloadValue(baud) ToReloadValueAutoReload(SysClock / (baud / 2) / 16)
+#define BaudToReloadValueDIV12(baud) ToReloadValueAutoReloadDIV12(SysClock / baud / 16)
+#define BaudDoubledToReloadValueDIV12(baud) ToReloadValueAutoReloadDIV12(SysClock / (baud / 2) / 16)
 
 /**
  * @brief Set reload value of BRT
