@@ -34,13 +34,13 @@ void onSysTickOneMs()
     static uint16_t remainOffTime = 1000;
     if (isLedOn()) {
         if (!--remainLightingTime) {
-            Led           = 0;
+            Led           = 1;
             remainOffTime = 1000;
         }
     }
     else {
         if (!--remainOffTime) {
-            Led                = 1;
+            Led                = 0;
             remainLightingTime = 1000;
         }
     }
