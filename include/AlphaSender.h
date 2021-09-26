@@ -2,7 +2,7 @@
 #include "STC/IAP/IAP.h"
 #include "STC/UART/UART.h"
 
-#define SavedDataAddr 0x4000
+#define SavedDataAddr 0x0000
 
 /**
  * @brief Last sent data buffer

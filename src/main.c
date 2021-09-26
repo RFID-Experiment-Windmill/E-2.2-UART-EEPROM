@@ -40,6 +40,7 @@ void initUART1()
     setBRTSource(SysClock_DIV_12);
     PortCfg_t cfg = {.mode = UART8, .baudGen = Timer_BRT, .baudMode = Normal, .it = EnableIT};
     reloadBRT(BaudToReloadValueDIV12(9600));
+    REN = 1;
 
     configurePort(Port1, &cfg);
 }

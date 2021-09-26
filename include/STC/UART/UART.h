@@ -1,6 +1,6 @@
 #pragma once
-#include "STC/STCBase.h"
 #include "STC/Interrupt.h"
+#include "STC/STCBase.h"
 #include "STC/Timer/Timer.h"
 #include "stdint.h"
 
@@ -17,10 +17,10 @@ inline void setBRTSource(TimerTriggerSource_t source)
     }
 }
 
-#define BaudToReloadValue(baud) ToReloadValueAutoReload(SysClock / baud / 16)
-#define BaudDoubledToReloadValue(baud) ToReloadValueAutoReload(SysClock / (baud / 2) / 16)
-#define BaudToReloadValueDIV12(baud) ToReloadValueAutoReloadDIV12(SysClock / baud / 16)
-#define BaudDoubledToReloadValueDIV12(baud) ToReloadValueAutoReloadDIV12(SysClock / (baud / 2) / 16)
+#define BaudToReloadValue(baud) ToReloadValueAutoReload(SysClock / baud / 32 + 1)
+#define BaudDoubledToReloadValue(baud) ToReloadValueAutoReload(SysClock / (baud / 2) / 32 + 1)
+#define BaudToReloadValueDIV12(baud) ToReloadValueAutoReload(SysClock / baud / 32 / 12 + 1)
+#define BaudDoubledToReloadValueDIV12(baud) ToReloadValueAutoReload(SysClock / (baud / 2) / 32 / 12 + 1)
 
 /**
  * @brief Set reload value of BRT
@@ -248,8 +248,10 @@ inline void sendDataTI(UARTPort_t port, uint8_t data)
  */
 inline void sendData(UARTPort_t port, uint8_t data)
 {
+    disableGlobalInterrupt();
     writePort(port, data);
     while (!checkTI(port))
         ;
     clearTI(port);
+    enableGlobalInterrupt();
 }
